@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebonfall</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Pirata+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #d4c4a8;
+            font-family: 'Crimson Pro', serif;
+            overflow-x: hidden;
+            font-size: 20px;
+        }
+        h1, h2, h3, .heading-font {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.05em;
+        }
+        .medieval-font {
+            font-family: 'Pirata One', cursive;
+            letter-spacing: 0.05em;
+        }
+        .parchment {
+            background-color: #24201c;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            border: 2px solid #5c4e3e;
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
+        }
+        .sepia-text {
+            color: #dcc8a4;
+        }
+        .blood-text {
+            color: #c00000;
+            text-shadow: 0 0 12px rgba(192, 0, 0, 0.5);
+        }
+        .fade-in {
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stone-border {
+            border: 4px double #5c4e3e;
+            outline: 1px solid #2a221a;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 12px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #5c4e3e;
+            border: 3px solid #0d0d0d;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #8c7851;
+        }
+        .dropcap::first-letter {
+            float: left;
+            font-family: 'Pirata One', cursive;
+            font-size: 6rem;
+            line-height: 5rem;
+            padding-top: 8px;
+            padding-right: 16px;
+            color: #c00000;
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 30px rgba(220, 200, 164, 0.15);
+            border-color: #dcc8a4;
+        }
+        
+        .survivor-quote {
+            display: block;
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid #5c4e3e;
+            font-style: italic;
+            color: #a8a090;
+            font-size: 1.25em;
+            position: relative;
+        }
+        .survivor-quote::before {
+            content: '"';
+            position: absolute;
+            left: 0.5rem;
+            top: -0.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        .creed-badge-hope { color: #fef3c7; text-shadow: 0 0 8px rgba(254, 243, 199, 0.4); }
+        .creed-badge-steel { color: #fca5a5; text-shadow: 0 0 8px rgba(220, 38, 38, 0.4); }
+        .creed-badge-despair { color: #d8b4fe; text-shadow: 0 0 8px rgba(168, 85, 247, 0.4); }
+
+        @keyframes tileDiscovery {
+            0% { transform: scale(0.9); opacity: 0; background-color: #fff; }
+            20% { opacity: 1; background-color: #dcc8a4; box-shadow: 0 0 40px #dcc8a4; transform: scale(1.1); }
+            100% { transform: scale(1); background-color: transparent; opacity: 1; }
+        }
+        .animate-discovery {
+            animation: tileDiscovery 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            z-index: 50;
+        }
+
+        @keyframes subtleGlow {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+            100% { filter: brightness(1); }
+        }
+        .highlight-pulse {
+            animation: subtleGlow 3s ease-in-out infinite;
+            border-color: #dcc8a4 !important;
+            border-width: 3px !important;
+        }
+
+        /* Outcome Log Styles */
+        .outcome-log {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(10, 10, 10, 0.6);
+            border-top: 2px solid #5c4e3e;
+            border-bottom: 2px solid #5c4e3e;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85em;
+            color: #a8a090;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: left;
+        }
+        .outcome-log h4 {
+            color: #dcc8a4;
+            margin-bottom: 0.8rem;
+            font-size: 1.1em;
+            border-bottom: 1px solid rgba(92, 78, 62, 0.5);
+            padding-bottom: 0.5rem;
+        }
+        .outcome-log ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        .outcome-log li {
+             position: relative;
+             padding-left: 1.5rem;
+        }
+        .outcome-log li::before {
+            content: '◈';
+            position: absolute;
+            left: 0;
+            color: #8c7851;
+        }
+
+        /* Atmospheric Fog */
+        .fog-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .fog-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/foggy-birds.png');
+            opacity: 0.08;
+            animation: fogFlow 120s linear infinite;
+        }
+        .fog-layer.two {
+            background: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            opacity: 0.15;
+            animation: fogFlow 180s linear infinite reverse;
+            mix-blend-mode: overlay;
+        }
+        @keyframes fogFlow {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .trend-up { color: #84cc16; } /* Lime 500 */
+        .trend-down { color: #ef4444; } /* Red 500 */
+        .trend-neutral { color: #78716c; } /* Stone 500 */
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
